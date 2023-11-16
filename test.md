@@ -73,8 +73,8 @@ CREATE TABLE statek (
     -> data_wodowania DATE,
     -> max_ladownosc INT UNSIGNED);
 
-INSERT INTO statek VALUES ('Statek1', 'zaglowy', '1705-08-21', 1000);
-INSERT INTO statek VALUES ('Statek2', 'wioslowy', '1704-10-17', 1500);
+INSERT INTO statek VALUES ('Statek1', 'zaglowy', '1705-08-21', 10000);
+INSERT INTO statek VALUES ('Statek2', 'wioslowy', '1704-10-17', 15000);
 
 ALTER TABLE postac ADD COLUMN
     -> funkcja VARCHAR(25)
