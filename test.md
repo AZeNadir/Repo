@@ -37,7 +37,7 @@ CREATE TABLE izba (
     -> nazwa_izby VARCHAR(50) NOT NULL,
     -> metraz MEDIUMINT UNSIGNED,
     -> PRIMARY KEY(adres_budynku, nazwa_izby),
-    -> wlasciciel INT FOREIGN KEY REFERENCES postac(id_postaci) SET NULL ON DELETE);
+    -> FOREIGN KEY (wlasciciel) REFERENCES postac(id_postaci) SET NULL ON DELETE);
 
 ALTER TABLE izba ADD COLUMN
     -> kolor VARCHAR(30) default 'czarny'
@@ -54,7 +54,7 @@ CREATE TABLE przetwory (
     -> id_wykonawcy INT FOREIGN KEY REFERENCES postac(id_postaci),
     -> zawartość VARCHAR(40),
     -> dodatek VARCHAR(30) default 'papryczka chilli',
-    -> id_konsumenta INT FOREIGN KEY REFERENCES postac(id_postaci));
+    -> FOREIGN KEY (id_konsumenta) REFERENCES postac(id_postaci));
 
 INSERT INTO przetwory (rok_produkcji, id_wykonawcy, zawartość, dodatek, id_konsumenta) VALUES (1644, 1, 'bigos', default, 3);
 ```
