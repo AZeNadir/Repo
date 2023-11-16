@@ -93,7 +93,7 @@ UPDATE postac SET statek='Statek2' WHERE nazwa='Wiking4';
 UPDATE postac SET statek='Statek2' WHERE nazwa='Wiking5';
 UPDATE postac SET statek='Statek2' WHERE nazwa='Drozd';
 
-DELETE FROM izba WHERE nazwa='spiżarnia';
+DELETE FROM izba WHERE nazwa_izby='spiżarnia';
 
 DROP TABLE izba;
 ```
