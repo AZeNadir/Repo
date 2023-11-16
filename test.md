@@ -54,7 +54,7 @@ CREATE TABLE przetwory (
     -> id_wykonawcy INT FOREIGN KEY REFERENCES postac(id_postaci),
     -> zawartość VARCHAR(40),
     -> dodatek VARCHAR(30) default 'papryczka chilli',
-    -> FOREIGN KEY (id_konsumenta) REFERENCES postac(id_postaci));
+    -> FOREIGN KEY (id_konsumenta) REFERENCES postac(id_postaci);
 
 INSERT INTO przetwory (rok_produkcji, id_wykonawcy, zawartość, dodatek, id_konsumenta) VALUES (1644, 1, 'bigos', default, 3);
 ```
