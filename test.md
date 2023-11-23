@@ -97,3 +97,41 @@ DELETE FROM izba WHERE nazwa_izby='spiżarnia';
 
 DROP TABLE izba;
 ```
+# Zadania lab 05
+
+## Zadanie 2
+```sql
+ALTER TABLE ADD COLUMN pesel CHAR(11) FIRST;
+
+UPDATE postac SET pesel='12345678901' + id_postaci;
+
+ALTER TABLE postac ADD PRIMARY KEY(pesel);
+
+ALTER TABLE postac MODIFY rodzaj ENUM('wiking','ptak','kobieta','syrena');
+
+INSERT INTO postac (nazwa, rodzaj, data_ur, wiek) VALUES ('Gertruda Nieszczera', 'Syrena','1723-11-09', 20);
+```
+
+## Zadanie 3
+```sql
+UPDATE postac SET statek='Statek1' WHERE nazwa LIKE '%a%';
+
+UPDATE statek SET max_ladownosc=max_ladownosc * 0.7 WHERE year(data_wodowania) BETWEEN 1901 AND 2000;
+
+ALTER TABLE postac ADD CHECK(wiek < 1000);
+```
+## Zadanie 4
+```sql
+INSERT INTO postac (nazwa, data_ur, wiek) VALUES ('Loko', '','1723-05-18', 20);
+
+CREATE TABLE marynarz LIKE postac;
+
+INSERT INTO marynarz SELECT * FROM postac WHERE statek IS NOT NULL;
+
+
+```
+## Zadanie 5
+```sql
+ALTER TABLE marynarz ADD PRIMARY KEY(pesel);
+ALTER TABLE marynarz ADD PRIMARY KEY(id_postaci);
+```
