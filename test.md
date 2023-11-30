@@ -135,3 +135,40 @@ INSERT INTO marynarz SELECT * FROM postac WHERE statek IS NOT NULL;
 ALTER TABLE marynarz ADD PRIMARY KEY(pesel);
 ALTER TABLE marynarz ADD PRIMARY KEY(id_postaci);
 ```
+
+# Zadania lab 06
+## Zadanie 1
+```sql
+CREATE TABLE kreatura AS SELECT * FROM wikingowie.kreatura;
+SELECT * FROM zasob;
+SELECT * FROM zasob WHERE typ='jedzenie';
+SELECT idZasobu, ilosc FROM zasob WHERE idKreatury IN (1, 3, 5);
+```
+
+## Zadanie 2
+```sql
+SELECT * FROM kreatura WHERE NOT rodzaj='wiedźma' AND udzwig >= 50;
+SELECT * FROM zasob WHERE waga BETWEEN 2 AND 5;
+SELECT * FROM kreatura WHERE nazwa LIKE '%or%' AND udzwig BETWEEN 30 AND 70;
+```
+
+## Zadanie 3
+```sql
+SELECT * FROM zasob WHERE MONTH(dataPozyskania) BETWEEN 7 AND 8;
+SELECT * FROM zasob WHERE rodzaj IS NOT NULL ORDER BY waga ASC;
+SELECT * FROM kreatura ORDER BY dataUr ASC LIMIT 5;
+```
+
+## Zadanie 4
+```sql
+SELECT DISTINCT rodzaj FROM zasob;
+SELECT CONCAT_WS('-',nazwa,rodzaj) AS nazwaRodzaj WHERE rodzaj LIKE 'wi%';
+SELECT ilosc*waga AS wagaCalkowita FROM zasob WHERE YEAR(dataPozyskania) BETWEEN 2000 AND 2007;
+```
+
+## Zadanie 5
+```sql
+SELECT () FROM zasob
+SELECT * FROM zasob WHERE rodzaj IS NULL;
+SELECT DISTINCT FROM zasob WHERE nazwa LIKE 'Ba%' OR nazwa LIKE '%os' ORDER BY nazwa ASC; 
+```
