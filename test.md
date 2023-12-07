@@ -172,3 +172,33 @@ SELECT () FROM zasob
 SELECT * FROM zasob WHERE rodzaj IS NULL;
 SELECT DISTINCT FROM zasob WHERE nazwa LIKE 'Ba%' OR nazwa LIKE '%os' ORDER BY nazwa ASC; 
 ```
+# Zadania lab 07
+## Zadanie 1
+```sql
+SELECT AVG(waga) FROM kreatura WHERE rodzaj='wiking';
+SELECT AVG(waga), COUNT(waga) FROM kreatura GROUP BY rodzaj;
+SELECT AVG(2023 - YEAR(dataUr) AS wiek FROM kreatura GROUP BY rodzaj;
+```
+## Zadanie 2
+```sql
+SELECT SUM(waga * ilosc) FROM zasob GROUP BY rodzaj;
+SELECT AVG(waga) FROM zasob WHERE ilosc >= 4 GROUP BY nazwa HAVING SUM(waga) > 10;
+SELECT COUNT(DISTINCT nazwa) FROM zasob GROUP BY rodzaj HAVING MIN(ilosc) > 1;
+```
+## Zadanie 3
+```sql
+SELECT * FROM kreatura k INNER JOIN ekwipunek e ON k.idkreatury=e.idKreatury;
+SELECT zasob.nazwa FROM kreatura k INNER JOIN ekwipunek e ON k.idkreatury=e.idKreatury INNER JOIN zasob z ON z.idZasobu=e.idZasobu;
+SELECT * FROM kreatura k LEFT JOIN ekwipunek e ON k.idKreatury=e.idKreatury WHERE e.idKreatury IS NULL;
+```
+## Zadanie 4
+```sql
+SELECT nazwa.kreatura, nazwa.zasob FROM kreatura NATURAL JOIN zasob WHERE YEAR(dataUr) > 1670;
+SELECT zasob.nazwa FROM kreatura k INNER JOIN ekwipunek e ON k.idkreatury=e.idKreatury INNER JOIN zasob z ON z.idZasobu=e.idZasobu WHERE z.rodzaj =
+jedzenie ORDER BY k.dataUr DESC LIMIT 5;
+SELECT CONCAT(k1.nazwa,' - ',k2.nazwa) FROM kreatura k1 INNER JOIN kreatura k2 WHERE k1.idKreatury - k2.idKreatury = 5;
+```
+## Zadanie 5
+```sql
+SELECT k.rodzaj, AVG(e.ilosc * z.waga) FROM kreatura k INNER JOIN ekwipunek e ON k.idKreatury = e.idKreatury INNER JOIN zasob z ON e.idZasobu = z.idZasobu WHERE k.rodzaj NOT IN ('malpa', 'waz') GROUP BY k.rodzaj HAVING SUM(e.ilosc) < 30;
+```
