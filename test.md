@@ -200,5 +200,12 @@ SELECT CONCAT(k1.nazwa,' - ',k2.nazwa) FROM kreatura k1 INNER JOIN kreatura k2 W
 ```
 ## Zadanie 5
 ```sql
-SELECT k.rodzaj, AVG(e.ilosc * z.waga) FROM kreatura k INNER JOIN ekwipunek e ON k.idKreatury = e.idKreatury INNER JOIN zasob z ON e.idZasobu = z.idZasobu WHERE k.rodzaj NOT IN ('malpa', 'waz') GROUP BY k.rodzaj HAVING SUM(e.ilosc) < 30;
+SELECT k.rodzaj, SUM(z.waga * e.ilosc), COUNT(*), AVG(z.waga * e.ilosc) FROM kreatura k INNER JOIN ekwipunek e ON k.idKreatury=e.idKreatury INNER JOIN zasob z ON e.idZasobu=z.idZasobu WHERE k.rodzaj NOT IN ('waz','malpa') AND e.ilosc < 30 GROUP BY rodzaj;
+SELECT a.nazwa, a.rodzaj, a.dataUr FROM kreatura a, (SELECT min(dataUr) min, max(dataUr) max FROM kreatura GROUP BY rodzaj) b WHERE b.min = a.dataUr OR b.max = a.dataUr;
+```
+# Zadania lab 08
+## Zadanie 1
+```sql
+CREATE TABLE kreatura AS SELECT * FROM wikingowie.kreatura;
+SELECT nazwa FROM kreatura LEFT JOIN uczestnicy ON kreatura.idKreatury = id_uczestnika WHERE IS NULL;
 ```
