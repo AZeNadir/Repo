@@ -209,3 +209,22 @@ SELECT a.nazwa, a.rodzaj, a.dataUr FROM kreatura a, (SELECT min(dataUr) min, max
 CREATE TABLE kreatura AS SELECT * FROM wikingowie.kreatura;
 SELECT nazwa FROM kreatura LEFT JOIN uczestnicy ON kreatura.idKreatury = id_uczestnika WHERE IS NULL;
 ```
+## Zadanie 2
+```sql
+SELECT GROUP_CONCAT(wyprawa.nazwa, COUNT(id_uczestnika), kreatura.nazwa) AS wyprawa FROM wyprawa, uczestnicy, kreatura;
+SELECT w.nazwa, ew.kolejnosc, s.nazwa, k.nazwa AS kierownik FROM etapy_wyprawy ew INNER JOIN sektor s ON s.id_sektora=ew.sektor INNER JOIN wyprawa w ON w.id_wyprawy=ew.idWyprawy INNER JOIN kreatura k ON k.idKreatury=w.kierownik ORDER BY w.data_rozpoczecia ASC, ew.kolejnosc;
+```
+## Zadanie 3
+```sql
+SELECT s.nazwa, COUNT(ew.sektor) FROM sektor s LEFT JOIN etapy_wyprawy ew ON s.id_sektora=ew.sektor GROUP BY s.id_sektora;
+SELECT k.nazwa, IF(COUNT(u.id_uczestnika) > 0, 'brał udział w wyprawie', 'nie brał udziału w wyprawie') czy_bral_udzial FROM kreatura k LEFT JOIN uczestnicy u ON u.id_uczestnika=k.idKreatury;
+```
+## Zadanie 4
+```sql
+SELECT w.nazwa, SUM(LENGTH(ew.dziennik)) AS suma_znakow FROM etapy_wyprawy ew INNER JOIN wyprawa w ON w.id_wyprawy=ew.idWyprawy
+SELECT u.id_wyprawy, w.nazwa, COUNT(DISTINCT id_uczestnika) ile_dobrze, SUM(e.ilosc * z.waga) suma_wagi, SUM(e.ilosc * z.waga) / COUNT(DISTINCT u.id_uczestnika) AVG_dobrze FROM uczestnicy u INNER JOIN ekwipunek e ON u.id_uczestnika=e.idKreatury
+```
+## Zadanie 5
+```sql
+SELECT k.nazwa, DATEDIFF(day, w.data_rozpoczecia, w.data_zakonczenia) FROM kreatura k, wyprawa w WHERE wyprawa.nazwa = 'Chatka dziadka';
+```
