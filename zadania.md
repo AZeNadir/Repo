@@ -228,3 +228,21 @@ SELECT u.id_wyprawy, w.nazwa, COUNT(DISTINCT id_uczestnika) ile_dobrze, SUM(e.il
 ```sql
 SELECT k.nazwa, DATEDIFF(day, w.data_rozpoczecia, w.data_zakonczenia) FROM kreatura k, wyprawa w WHERE wyprawa.nazwa = 'Chatka dziadka';
 ```
+
+# Zadania lab 09
+## Zadanie 1
+```sql
+DELIMETER // CREATE TRIGGER kreatura_before_insert BEFORE INSERT ON kreatura FOR EACH ROW BEGIN IF NEW.waga <= 0 THEN SET NEW.waga = 1; END IF; END //
+DELIMETER ;
+ALTER TABLE kreatura MODIFY
+```
+
+## Zadanie 2
+```sql
+DELIMETER // CREATE TRIGGER archiwum_before_delete BEFORE DELETE ON wyprawa INSERT INTO archiwum_wypraw SELECT w.id_wyprawy, w.nazwa, w.data_rozpoczecia, w.data_zakonczenia, k.nazwa FROM wyprawa w INNER JOIN kreatura k ON w.kierownik=k.idKreatury WHERE id_wyprawy=OLD.id_wyprawy;
+```
+
+## Zadanie 3
+```sql
+CREATE PROCEDURE eliksir_sily (IN id_kreatury
+```
