@@ -1,4 +1,4 @@
-# Lab 3
+# Lab 3 część 1
 ## Zadanie 1
 SELECT imie, nazwisko, data_urodzenie FROM pracownik;
 
@@ -28,3 +28,13 @@ SELECT id_zamowienia, numer_zamowienia, SUM(ilosc*cena) FROM zamowienie INNER JO
 
 ## Zadanie 10
 SELECT imie, nazwisko, SUM(pozycja_zamowienia.ilosc*pozycja_zamowienia.cena) AS suma FROM zamowienie INNER JOIN pozycja_zamowienia ON zamowienie.id_zamowienia=pozycja_zamowienia.zamowienie INNER JOIN pracownik ON pracownik.id_pracownika=zamowienia.pracownik_id_pracownika GROUP BY zamowienie.pracownik_id_pracownika ORDER BY suma DESC;
+
+# Lab 3 część 2
+## Zadanie 1
+SELECT p.dzial, MIN(p.pensja), MAX(p.pensja), AVG(p.pensja) FROM pracownik p INNER JOIN dzial d ON p.dzial=d.id_dzialu GROUP BY d.id_dzialu;
+
+## Zadanie 2
+SELECT z.numer_zamowienia, SUM(pz.ilosc*pz.cena) AS wartosc, z.klient, k.pelna_nazwa FROM zamowienie z INNER JOIN pozycja_zamowienia pz ON z.id_zamowienia=pz.zamowienie INNER JOIN klient k ON k.id_klienta=z.klient GROUP BY z.id_zamowienia ORDER BY wartosc DESC LIMIT 10;
+
+## Zadanie 2*
+SELECT DISTINCT k.id_klienta, z.klient FROM klient k INNER JOIN zamowienie z ON k.id_klienta=z.klient;
