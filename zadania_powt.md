@@ -1,1 +1,27 @@
-# Lab
+# Lab 3
+## Zadanie 1
+SELECT imie, nazwisko, data_urodzenie FROM pracownik;
+
+## Zadanie 2
+SELECT imie, nazwisko, DATEDIFF(year, GETDATE(), data_urodzenia);
+
+## Zadanie 3
+SELECT nazwa, COUNT(id_pracownika) FROM dzial INNER JOIN pracownik ON dzial.id_dzialu=pracownik.dzial GROUP BY id_dzialu;
+
+## Zadanie 4
+SELECT nazwa_kategorii, COUNT(id_towaru) FROM kategoria INNER JOIN towar ON kategoria.id_kategorii=towar.kategoria GROUP BY id_kategorii;
+
+## Zadanie 5
+SELECT nazwa_kategorii, GROUP_CONCAT(nazwa_towaru) FROM kategoria INNER JOIN towar ON kategoria.id_kategorii=towar.kategoria;
+
+## Zadanie 6
+SELECT ROUND(AVG(pensja), 2) FROM pracownik;
+
+## Zadanie 7
+SELECT ROUND(AVG(pensja), 2) FROM pracownik WHERE data_zatrudnienia <= '2019-01,11';
+
+## Zadanie 8
+SELECT nazwa_towaru, towar, SUM(ilosc) AS suma FROM towar INNER JOIN pozycja_zamowienia ON towar.id_towaru=pozycja_zamowienia.towar GROUP BY towar ORDER BY suma DESC LIMIT 10; 
+
+## Zadanie 9
+SELECT id_zamowienia, numer_zamowienia, SUM(ilosc*cena) FROM zamowienie INNER JOIN pozycja_zamowienia ON zamowienie.id_zamowienia=pozycja_zamowienia.zamowienie WHERE QUARTER(zamowienie.data_zamowienia) = 1 AND YEAR(zamowienie.data_zamowienia) = 2017 GROUP BY zamowienie.id_zamowienia;
