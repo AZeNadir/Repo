@@ -25,3 +25,6 @@ SELECT nazwa_towaru, towar, SUM(ilosc) AS suma FROM towar INNER JOIN pozycja_zam
 
 ## Zadanie 9
 SELECT id_zamowienia, numer_zamowienia, SUM(ilosc*cena) FROM zamowienie INNER JOIN pozycja_zamowienia ON zamowienie.id_zamowienia=pozycja_zamowienia.zamowienie WHERE QUARTER(zamowienie.data_zamowienia) = 1 AND YEAR(zamowienie.data_zamowienia) = 2017 GROUP BY zamowienie.id_zamowienia;
+
+## Zadanie 10
+SELECT imie, nazwisko, SUM(pozycja_zamowienia.ilosc*pozycja_zamowienia.cena) AS suma FROM zamowienie INNER JOIN pozycja_zamowienia ON zamowienie.id_zamowienia=pozycja_zamowienia.zamowienie INNER JOIN pracownik ON pracownik.id_pracownika=zamowienia.pracownik_id_pracownika GROUP BY zamowienie.pracownik_id_pracownika ORDER BY suma DESC;
