@@ -232,17 +232,48 @@ SELECT k.nazwa, DATEDIFF(day, w.data_rozpoczecia, w.data_zakonczenia) FROM kreat
 # Zadania lab 09
 ## Zadanie 1
 ```sql
-DELIMETER // CREATE TRIGGER kreatura_before_insert BEFORE INSERT ON kreatura FOR EACH ROW BEGIN IF NEW.waga <= 0 THEN SET NEW.waga = 1; END IF; END //
+DELIMETER //
+CREATE TRIGGER kreatura_before_insert BEFORE INSERT ON kreatura FOR EACH ROW BEGIN IF NEW.waga <= 0 THEN SET NEW.waga = 1; END IF;
+END //
 DELIMETER ;
-ALTER TABLE kreatura MODIFY
+
+DELIMETER //
+CREATE TRIGGER kreatura_before_insert BEFORE UPDATE ON kreatura FOR EACH ROW BEGIN IF NEW.waga <= 0 THEN SET NEW.waga = 1; END IF;
+END //
+DELIMETER ;
 ```
 
 ## Zadanie 2
 ```sql
-DELIMETER // CREATE TRIGGER archiwum_before_delete BEFORE DELETE ON wyprawa INSERT INTO archiwum_wypraw SELECT w.id_wyprawy, w.nazwa, w.data_rozpoczecia, w.data_zakonczenia, k.nazwa FROM wyprawa w INNER JOIN kreatura k ON w.kierownik=k.idKreatury WHERE id_wyprawy=OLD.id_wyprawy;
+DELIMETER //
+CREATE TRIGGER archiwum_before_delete BEFORE DELETE ON wyprawa INSERT INTO archiwum_wypraw SELECT w.id_wyprawy, w.nazwa, w.data_rozpoczecia, w.data_zakonczenia, k.nazwa FROM wyprawa w INNER JOIN kreatura k ON w.kierownik=k.idKreatury WHERE id_wyprawy=OLD.id_wyprawy;
+END //
+DELIMETER ;
 ```
 
 ## Zadanie 3
 ```sql
-CREATE PROCEDURE eliksir_sily (IN id_kreatury
+DELIMETER //
+CREATE PROCEDURE eliksir_sily (IN id_kreatury INTEGER, OUT udzwig INTEGER)
+BEGIN
+SELECT udzwig*1.20 INTO udzwig FROM kreatura.udzwig
+END //
+DELIMETER ;
+
+CREATE FUNCTION wielka (tekst VARCHAR(50)) RETURNS VARCHAR(50) DETERMINISTIC RETURN UPPER(tekst);
+```
+
+## Zadanie 4
+```sql
+CREATE TABLE system_alarmowy (
+    -> id_alarmu INTEGER AUTO_INCREMENT PRIMARY KEY,
+    -> wiadomosc VARCHAR(500);
+
+DELIMETER //
+CREATE TRIGGER misja AFTER INSERT INTO ON wyprawa FOR EACH ROW
+BEGIN
+INSERT INTO system_alarmowy(wiadomosc) VALUES ('Teściowa nadchodzi!!!') WHERE EXISTS (SELECT * FROM kretura WHERE nazwa = 'Tesciowa') 
+END NEW ;
+END //
+DELIMETER ;
 ```
